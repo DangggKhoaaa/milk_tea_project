@@ -95,10 +95,10 @@
     <!-- Contact Start -->
     <div class="container-xxl contact py-5">
         <div class="container">
-            <div class="row g-5">
+            <div class="row g-5" style="width: 110%">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="mb-4">REGISTER</h3>
-                    <form>
+                    <form id="formCre">
                         <div class="row g-4">
                             <div class="col-12">
                                 <div class="form-floating">
@@ -120,24 +120,24 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="phone" placeholder="Phone">
-                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                                    <label for="phone">Phone Number</label>
                                 </div>
                             </div>
-                            <div class= "row" id="locationUp">
+                            <div class= "row" id="locationCre" style="max-width: 700px;width: 104%">
                                 <div class="col-4">
-                                    <label >Province</label>
-                                    <select class="form-select" id="provinceUp" aria-label="Disabled select example">
+                                    <label style="margin: 10px" for="provinceCre">Province</label>
+                                    <select class="form-select" style="padding: 0.8rem 0.75rem" id="provinceCre" aria-label="Disabled select example">
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <label >District</label>
-                                    <select class="form-select" id="districtUp" aria-label="Disabled select example">
+                                    <label style="margin: 10px" for="districtCre">District</label>
+                                    <select class="form-select"  style="padding: 0.8rem 0.75rem" id="districtCre" aria-label="Disabled select example">
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <label >Ward</label>
-                                    <select class="form-select" id="wardUp" aria-label="Disabled select example">
+                                    <label style="margin: 10px" for="wardCre">Ward</label>
+                                    <select class="form-select"  style="padding: 0.8rem 0.75rem" id="wardCre" aria-label="Disabled select example">
                                     </select>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Register</button>
+                                <button class="btn btn-primary rounded-pill py-3 px-5" type="button" id="register">Register</button>
                                 <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Login</button>
                             </div>
                         </div>
@@ -243,9 +243,11 @@
     <script src="/homepage/lib/easing/easing.min.js"></script>
     <script src="/homepage/lib/waypoints/waypoints.min.js"></script>
     <script src="/homepage/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Javascript -->
     <script src="/homepage/js/main.js"></script>
+    <script src="/js/register.js"></script>
 </body>
 
 </html>
