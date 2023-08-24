@@ -19,7 +19,6 @@ public class ProductService {
     }
 
     public Product create(ProductRequest request) {
-        Product product = AppUtils.mapper.map(request, Product.class);
-        return productRepository.save(product);
+        return productRepository.save(AppUtils.mapper.map(request, Product.class));
     }
 }

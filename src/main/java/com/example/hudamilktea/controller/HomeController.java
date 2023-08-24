@@ -10,6 +10,11 @@ public class HomeController {
 
     @GetMapping
     public String showHome (){
-        return "index";
+        return "home";
+    }
+
+    @GetMapping("/register")
+    public String showRegister (){
+        return "customer/register";
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 @AllArgsConstructor
 public class ProductRestController {
 
@@ -21,7 +21,7 @@ public class ProductRestController {
         return productService.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody ProductRequest request) {
         productService.create(request);
         return ResponseEntity.ok(request);

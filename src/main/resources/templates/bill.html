@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout.html :: header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid" style="padding: 2rem 4rem">
+    <form th:object="${bill}" th:action="@{/bills/create}" method="post" class="row g-3 card" style="padding: 2rem 4rem; flex-direction: row">
+        <div class="col-md-6">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" th:field="*{customer.fullName}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('customer.fullName')}" th:errors="*{customer.fullName}"></div>
+        </div>
+        <div class="col-md-6">
+            <label for="date" class="form-label">Date of purchase</label>
+            <input type="date" class="form-control" id="date" th:field="*{date}">
+        </div>
+        <div class="col-md-6">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" class="form-control"
+                   th:classappend="${#fields.hasErrors('customer.phone')} ? 'is-invalid' : ''"
+                   id="phone" th:field="*{customer.phone}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('customer.phone')}" th:errors="*{customer.phone}"></div>
+        </div>
+<!--        <div class="col-md-12">-->
+<!--            <label for="address" class="form-label">Address</label>-->
+<!--            <input type="text" class="form-control"-->
+<!--                   th:classappend="${#fields.hasErrors('customer.address')} ? 'is-invalid' : ''"-->
+<!--                   id="address" th:field="*{customer.locationRegion}">-->
+<!--            <div class="invalid-feedback" th:if="${#fields.hasErrors('customer.locationRegion')}" th:errors="*{customer.locationRegion}"></div>-->
+<!--        </div>-->
+        <hr>
+        <div id="billDetail" class="row g-3">
+            <th:block th:each="billDetail, iter : *{billDetails}">
+                <div class="col-4">
+                    <label for="product0" class="form-label">Product</label>
+                    <select th:id="${iter.index}" class="form-control" id="product0" onchange="onChangeProduct(this)"
+                            th:value="${billDetail.product.id}"
+                            th:name="${'billDetails[' + iter.index + '].product.id'}">
+                        <option value=''>--Choose--</option>
+                        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}">
+
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label class="form-label">Price</label>
+                    <input type="text"
+                           disabled
+                           class="form-control price"
+                           th:id="${'price' + iter.index}"
+                           th:value="${billDetail.price}"
+                           th:name="${'billDetails[' + iter.index + '].price'}">
+                </div>
+                <div class="col-4">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" th:id="${'quantity' + iter.index}" class="form-control"
+                           th:value="${billDetail.quantity}"
+                           onchange="changeQuantity(this)"
+                           th:name="${'billDetails[' + iter.index + '].quantity'}">
+                </div>
+            </th:block>
+        </div>
+        <div class="d-flex flex-row-reverse">
+            <button class="btn btn-danger me-3">Back</button>
+            <button type="button" onclick="addMore()" class="btn btn-primary me-3">Add More</button>
+            <button class="btn btn-primary me-3">Submit</button>
+        </div>
+
+    </form>
+</div>
+<script th:inline="javascript">
+
+    let billDetails = [[${bill.billDetails}]];
+    const products = [[${products}]]
+    let productsData = [];
+    let currentSize = billDetails.length;
+    const billDetailElement = document.getElementById('billDetail');
+    function addMore() {
+        const data = {
+            price: '',
+            quantity: '',
+            product: {
+                id: null
+            }
+        };
+        billDetails.push(data);
+        renderBillDetail();
+        currentSize++;
+    }
+
+    function onChangeProduct(e){
+        //[1,2]
+        //[1,1] => [1]
+        //e.value is id product, e.id is index of bill detail
+        //e.value la id product, e.id la index cua bill detail
+        const product = products.find(product => product.id === +e.value);
+        const price = product?.price || '';
+        document.getElementById('price' + e.id).value = price;
+        billDetails[e.id].product.id = e.value;
+        billDetails[e.id].price = price;
+        billDetails = combineObjects(billDetails);
+        renderBillDetail();
+        // removeProductOfBillDetail();
+    }
+
+    function renderBillDetail(){
+        let str = "";
+        // console.log(billDetails)
+        billDetails.forEach((billDetail, index) => {
+            let strOption = "<option value=''>--Choose--</option>";
+            products.forEach(product => {
+
+                if(product.id === +billDetail.product.id){
+                    strOption += `<option value="${product.id}" selected>${product.title} </option>`
+                }else{
+                    strOption += `<option value="${product.id}">${product.title} </option>`
+                }
+
+            });
+            str+= `<div class="col-4">
+                    <label for="product0" class="form-label">Product</label>
+                    <select id="${index}"
+                            class="form-control" id="product0"
+                            value="${billDetail.product.id}"
+                            onchange="onChangeProduct(this)"
+                            name="${'billDetails[' + index + '].product.id'}">
+                            ${strOption}
+                           </select>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">Price</label>
+                    <input type="text" disabled class="form-control price" id="price${index}" value="${billDetail.price || 0}">
+                </div>
+                <div class="col-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" id="quantity${index}" class="form-control"
+                    value="${billDetail.quantity}"
+                    onchange="changeQuantity(this)"
+                           name="${'billDetails[' + index + '].quantity'}">
+                </div>
+                <div class="col-2">
+                    <label for="quantity" class="form-label">Action</label>
+                    <button type="button" class="btn btn-danger form-control" onclick="removeProductFromCart(${index})">Delete</button>
+                </div>`
+        })
+        billDetailElement.innerHTML = str;
+    }
+
+    function combineObjects(billDetails) {
+        let result = [];
+
+        // Create a temporary object to store quantities for each id
+        let temp = {};
+
+        billDetails.forEach(obj => {
+            if (temp[obj.product.id]) {
+                // If an object with the same id already exists in temp, increase its quantity
+                temp[obj.product.id].quantity += obj.quantity || 0;
+            } else {
+                // If the id is not yet in temp, add a new entry
+                temp[obj.product.id] = { product: {
+                        id: obj.product.id
+                    },
+                    quantity: obj.quantity,
+                    price: obj.price
+                };
+            }
+        });
+
+        // Push the values from temp to the result array
+        for (let key in temp) {
+            result.push(temp[key]);
+        }
+
+        return result;
+    }
+    function changeQuantity(e){
+        if(+e.value < 0){
+            e.value = 0;
+            return;
+        }
+        const index = extractNumberFromString(e.id);
+        billDetails[index].quantity = +e.value;
+    }
+    function extractNumberFromString(str) {
+        //str12 => 12
+        //mot => 1
+        let number = str.match(/\d+/);
+        return parseInt(number);
+    }
+    function removeProductFromCart(index){
+        billDetails.splice(index,1);
+        renderBillDetail();
+    }
+    renderBillDetail();
+    /*]]>*/
+</script>
+<script>
+
+</script>
+<th:block th:replace="layout.html :: footer"></th:block>
+</body>
+</html>
