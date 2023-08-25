@@ -1,2 +1,3 @@
-package com.example.hudamilktea.controller;public class ProductController {
+package com.example.hudamilktea.controller;
+public class ProductController {
 }

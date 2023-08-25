@@ -27,4 +27,14 @@ public class HomeController {
     public String showProduct (){
         return "customer/product";
     }
+
+    @GetMapping("/cart")
+    public String showCart (){
+        return "customer/cart";
+    }
+
+    @GetMapping("/reg")
+    public String showRe (){
+        return "register";
+    }
 }

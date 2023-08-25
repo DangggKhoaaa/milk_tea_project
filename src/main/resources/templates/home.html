@@ -3,32 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tea House - Tea Shop Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <title>Tea House</title>
 
-    <!-- Favicon -->
-    <link href="/homepage/img/favicon.ico" rel="icon">
+    <th:block th:insert="layout/header :: homaMeta"/>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/homepage/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="/homepage/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/homepage/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/homepage/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a href="/home" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="/home/reg" class="nav-item nav-link">About</a>
                         <a href="/home/products" class="nav-item nav-link">Products</a>
                         <a href="store.html" class="nav-item nav-link">Store</a>
                         <div class="nav-item dropdown">
@@ -62,10 +40,12 @@
                                 <a href="blog.html" class="dropdown-item">Logout</a>
                             </div>
                         </div>
-                        <a href="home/register" class="nav-item nav-link">Register</a>
+                        <a href="/home/register" class="nav-item nav-link">Register</a>
                     </div>
                     <div class="border-start ps-4 d-none d-lg-block">
-                        <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-outline-light" style="background-color: #71db45">
+                            <i class="fa-solid fa-cart-plus" style="font-size: 30px"></i>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -523,7 +503,6 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Copyright Start -->
     <div class="container-fluid copyright py-4">
         <div class="container">
@@ -540,21 +519,8 @@
     </div>
     <!-- Copyright End -->
 
-
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/homepage/lib/wow/wow.min.js"></script>
-    <script src="/homepage/lib/easing/easing.min.js"></script>
-    <script src="/homepage/lib/waypoints/waypoints.min.js"></script>
-    <script src="/homepage/lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="/homepage/js/main.js"></script>
+<th:block th:insert="layout/script :: homeScript"/>
 </body>
 
 </html>

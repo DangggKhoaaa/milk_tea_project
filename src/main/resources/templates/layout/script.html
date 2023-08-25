@@ -1,19 +1,35 @@
 <th:block th:fragment = "vendor">
-  <script src="assets\js\vendor.min.js"></script>
+  <script src="\assets\js\vendor.min.js"></script>
 
-  <script src="assets\libs\jquery-knob\jquery.knob.min.js"></script>
-  <script src="assets\libs\peity\jquery.peity.min.js"></script>
+  <script src="\assets\libs\jquery-knob\jquery.knob.min.js"></script>
+  <script src="\assets\libs\peity\jquery.peity.min.js"></script>
 </th:block>
 
 <th:block th:fragment = "app-js">
 
   <!-- Sparkline charts -->
-  <script src="assets\libs\jquery-sparkline\jquery.sparkline.min.js"></script>
+  <script src="\assets\libs\jquery-sparkline\jquery.sparkline.min.js"></script>
 
   <!-- init js -->
-  <script src="assets\js\pages\dashboard-1.init.js"></script>
+  <script src="\assets\js\pages\dashboard-1.init.js"></script>
 
-  <script src="assets\js\app.min.js"></script>
-  <scrip src="assets/js/pages/datatables.init.js"></scrip>
+  <script src="\assets\js\app.min.js"></script>
+  <scrip src="/assets/js/pages/datatables.init.js"></scrip>
+
+</th:block>
+
+<th:block th:fragment = "homeScript">
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/homepage/lib/wow/wow.min.js"></script>
+  <script src="/homepage/lib/easing/easing.min.js"></script>
+  <script src="/homepage/lib/waypoints/waypoints.min.js"></script>
+  <script src="/homepage/lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Template Javascript -->
+  <script src="/homepage/js/main.js"></script>
 
 </th:block>
