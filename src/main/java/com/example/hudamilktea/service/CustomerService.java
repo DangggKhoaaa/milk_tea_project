@@ -2,9 +2,11 @@ package com.example.hudamilktea.service;
 
 import com.example.hudamilktea.model.Customer;
 import com.example.hudamilktea.model.LocationRegion;
+import com.example.hudamilktea.model.Staff;
 import com.example.hudamilktea.model.enums.Role;
 import com.example.hudamilktea.repository.CustomerRepository;
 import com.example.hudamilktea.repository.LocationRegionRepository;
+import com.example.hudamilktea.repository.StaffRepository;
 import com.example.hudamilktea.service.DTO.CustomerRequest;
 import com.example.hudamilktea.util.AppUtils;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CustomerService implements UserDetailsService {
     private final CustomerRepository customerRepository;
+    private final StaffRepository staffRepository;
 
     private final LocationRegionRepository locationRegionRepository;
 
@@ -56,15 +59,23 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.save(customer);
     }
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findCustomerByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not Exist") );
+                .orElse(null);
+        if (customer != null){
         var role = new ArrayList<SimpleGrantedAuthority>();
         role.add(new SimpleGrantedAuthority(customer.getRole().toString()));
 
         return new org.springframework.security.core.userdetails.User(customer.getUsername(), customer.getPassword(), role);
+        }
+
+        Staff staff = staffRepository.findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(username,username,username).orElse(null);
+        if (staff != null){
+            throw new UsernameNotFoundException("Tài khoản không tồn tài, cút");
+        }
+        var role = new ArrayList<SimpleGrantedAuthority>();
+        role.add(new SimpleGrantedAuthority(staff.getRole().toString()));
+        return new org.springframework.security.core.userdetails.User(staff.getStaffName(),staff.getPassword(),role);
     }
 }

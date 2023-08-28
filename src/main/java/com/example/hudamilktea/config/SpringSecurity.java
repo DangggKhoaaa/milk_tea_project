@@ -37,7 +37,7 @@ public class SpringSecurity {
                                 .requestMatchers("/customer").hasAnyRole("ADMIN")
                                 .requestMatchers("/products").hasAnyRole("ADMIN")
                                 .requestMatchers("/staff").hasAnyRole("ADMIN")
-                                .requestMatchers("/home/**").hasAnyRole("USER").anyRequest().authenticated()
+                                .requestMatchers("/home/**").hasAnyRole("USER","STAFF").anyRequest().authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

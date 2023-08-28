@@ -33,7 +33,7 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class RegisterStaffService implements UserDetailsService {
+public class RegisterStaffService  {
     private final StaffRepository staffRepository;
     private final LocationRegionRepository locationRegionRepository;
 
@@ -55,7 +55,7 @@ public class RegisterStaffService implements UserDetailsService {
         var staff = AppUtils.mapper.map(request, Staff.class);
         staff.setStaffName(staff.getStaffName());
         staff.setPassword(passwordEncoder.encode(staff.getPassword()));
-        staff.setRole(Role.ROLE_USER);
+        staff.setRole(Role.ROLE_STAFF);
 
         LocationRegionRequest locationRegionSaveRequest = request.getLocationRegion();
         LocationRegion locationRegion = new LocationRegion();
@@ -90,16 +90,21 @@ public class RegisterStaffService implements UserDetailsService {
         return check;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Staff staff = staffRepository.findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(username,username,username).orElse(null);
-        if (staff == null){
-            throw new UsernameNotFoundException("Tài khoản không tồn tài, cút");
-        }
-        var role = new ArrayList<SimpleGrantedAuthority>();
-        role.add(new SimpleGrantedAuthority(staff.getRole().toString()));
-        return new org.springframework.security.core.userdetails.User(staff.getStaffName(),staff.getPassword(),role);
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return null;
+//    }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Staff staff = staffRepository.findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(username,username,username).orElse(null);
+//        if (staff == null){
+//            throw new UsernameNotFoundException("Tài khoản không tồn tài, cút");
+//        }
+//        var role = new ArrayList<SimpleGrantedAuthority>();
+//        role.add(new SimpleGrantedAuthority(staff.getRole().toString()));
+//        return new org.springframework.security.core.userdetails.User(staff.getStaffName(),staff.getPassword(),role);
+//    }
 
 
 }
