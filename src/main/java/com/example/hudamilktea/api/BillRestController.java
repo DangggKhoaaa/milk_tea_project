@@ -1,5 +1,6 @@
 package com.example.hudamilktea.api;
 
+import com.example.hudamilktea.repository.StaffRepository;
 import com.example.hudamilktea.service.BillService;
 import com.example.hudamilktea.service.DTO.BillRequest;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ public class BillRestController {
 
     private final BillService billService;
 
+    private final StaffRepository staffRepository;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BillRequest request) {

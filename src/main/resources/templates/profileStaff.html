@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Minton - Responsive Admin Dashboard Template</title>
+  <th:block th:insert="layout/header :: meta"/>
+  <!-- App css -->
+  <th:block th:insert="layout/header :: app-css"/>
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+  <!-- Topbar Start -->
+  <th:block th:insert="layout/navbarStaff"/>
+  <!-- end Topbar -->
+
+  <!-- ========== Left Sidebar Start ========== -->
+  <th:block th:insert="layout/left-side-menu"/>
+  <!-- Left Sidebar End -->
+
+  <!-- ============================================================== -->
+  <!-- Start Page Content here -->
+  <!-- ============================================================== -->
+
+  <div class="content-page">
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4>Staff</h4>
+
+                <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form action="#" id="profile-staff" th:object="${staff}">
+                        <input class="form-control" readonly type="text" id= th:value="*{id}" placeholder="Enter your name" required="">
+
+                        <div class="form-group">
+                          <label for="fullNameCre">Full Name</label>
+                          <input class="form-control" readonly type="text" id="fullNameCre" th:value="*{fullName}" placeholder="Enter your name" required="">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="emailCre">Email address</label>
+                          <input class="form-control" readonly type="email" id="emailCre" th:value="*{email}" required="" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                          <label for="phoneCre">Phone</label>
+                          <input class="form-control" type="text" id="phoneCre" readonly th:value="*{phone}" required="" placeholder="Enter your phone">
+                        </div>
+                        <div class="form-group">
+                          <label for="AgeCre">Age</label>
+                          <input class="form-control" type="number" id="AgeCre" readonly th:value="*{age}" required="" placeholder="Enter your age">
+                        </div>
+                        <div class="form-group">
+                          <div class="col-lg-3">
+                            <label for="provinceCre">Province</label>
+                            <input name="" id="provinceCre" readonly th:value="*{locationRegion.provinceName}" class="form-control"></input>
+                          </div>
+                          <div class="form-group">
+                            <label for="districtCre">District</label>
+                            <input name="" id="districtCre" readonly th:value="*{locationRegion.districtName}" class="form-control"></input>
+                          </div>
+                          <div class="form-group">
+                            <label for="wardCre">Ward</label>
+                            <input name="" id="wardCre" readonly th:value="*{locationRegion.wardName}" class="form-control"></input>
+                          </div>
+                          <div class="form-group">
+                            <label for="addressCre">Address</label>
+                            <input type="text" id="addressCre" readonly th:value="*{locationRegion.address}" class="form-control">
+                          </div>
+                        </div>
+<!--                        <td>-->
+<!--                          <button id="submitUpdate" onclick="update(this)" class="btn btn-outline-secondary edit" data-bs-toggle="modal" data-bs-target="#modalUpdate" th:data-id="${staff.id}">-->
+<!--                            <i class="fas fa-user-edit"></i>-->
+<!--                          </button>-->
+<!--                        </td>-->
+
+                      </form>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div> <!-- end card body-->
+            </div> <!-- end card -->
+          </div><!-- end col-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row-->
+
+  <!-- ============================================================== -->
+  <!-- End Page content -->
+  <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<div class="modal fade" id="modalUpdate" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Modal update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+            <input type="hidden" id="idUp">
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-4">
+              <label for="fullNameUp">FullName</label>
+              <input type="text" id="fullNameUp" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label for="emailUp">Email</label>
+              <input type="email" id="emailUp" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label for="phoneUp">Phone</label>
+              <input type="tel" id="phoneUp" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label for="ageUp">Age</label>
+              <input type="tel" id="ageUp" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-3">
+              <label for="phoneUp">Province</label>
+              <select name="" id="provinceUp" class="form-select"></select>
+            </div>
+            <div class="col-lg-3">
+              <label for="phoneUp">District</label>
+              <select name="" id="districtUp" class="form-select"></select>
+            </div>
+            <div class="col-lg-3">
+              <label for="phoneUp">Ward</label>
+              <select name="" id="wardUp" class="form-select"></select>
+            </div>
+            <div class="col-lg-3">
+              <label for="addressUp">Address</label>
+              <input type="text" id="addressUp" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+  <div class="rightbar-title">
+    <a href="javascript:void(0);" class="right-bar-toggle float-right">
+      <i class="fe-x noti-icon"></i>
+    </a>
+    <h4 class="m-0 text-white">Settings</h4>
+  </div>
+  <div class="slimscroll-menu">
+    <!-- User box -->
+    <div class="user-box">
+      <div class="user-img">
+        <img src="assets\images\users\avatar-1.jpg" alt="user-img" title="Mat Helme"
+             class="rounded-circle img-fluid">
+        <a href="javascript:void(0);" class="user-edit"><i class="mdi mdi-pencil"></i></a>
+      </div>
+
+      <h5><a href="javascript: void(0);">Nik G. Patel</a></h5>
+      <p class="text-muted mb-0"><small>Admin Head</small></p>
+    </div>
+
+    <ul class="nav nav-pills bg-light nav-justified">
+      <li class="nav-item">
+        <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+          General
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+          Chat
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content pl-3 pr-3">
+      <div class="tab-pane" id="home1">
+        <div class="row mb-2">
+          <div class="col">
+            <h5 class="m-0 font-15">Notifications</h5>
+            <p class="text-muted"><small>Do you need them?</small></p>
+          </div> <!-- end col-->
+          <div class="col-auto">
+            <div class="custom-control custom-switch mb-2">
+              <input type="checkbox" class="custom-control-input" id="tabswitch1">
+              <label class="custom-control-label" for="tabswitch1"></label>
+            </div>
+          </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
+        <div class="row mb-2">
+          <div class="col">
+            <h5 class="m-0 font-15">API Access</h5>
+            <p class="text-muted"><small>Enable/Disable access</small></p>
+          </div> <!-- end col-->
+          <div class="col-auto">
+            <div class="custom-control custom-switch mb-2">
+              <input type="checkbox" class="custom-control-input" checked="" id="tabswitch2">
+              <label class="custom-control-label" for="tabswitch2"></label>
+            </div>
+          </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
+        <div class="row mb-2">
+          <div class="col">
+            <h5 class="m-0 font-15">Auto Updates</h5>
+            <p class="text-muted"><small>Keep up to date</small></p>
+          </div> <!-- end col-->
+          <div class="col-auto">
+            <div class="custom-control custom-switch mb-2">
+              <input type="checkbox" class="custom-control-input" id="tabswitch3">
+              <label class="custom-control-label" for="tabswitch3"></label>
+            </div>
+          </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
+        <div class="row mb-2">
+          <div class="col">
+            <h5 class="m-0 font-15">Online Status</h5>
+            <p class="text-muted"><small>Show your status to all</small></p>
+          </div> <!-- end col-->
+          <div class="col-auto">
+            <div class="custom-control custom-switch mb-2">
+              <input type="checkbox" class="custom-control-input" checked="" id="tabswitch4">
+              <label class="custom-control-label" for="tabswitch4"></label>
+            </div>
+          </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
+        <div class="alert alert-success alert-dismissible fade mt-3 show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h5>Unlimited Access</h5>
+          Upgrade to plan to get access to unlimited reports
+          <br>
+          <a href="javascript: void(0);" class="btn btn-outline-success mt-3 btn-sm">Upgrade<i
+                  class="ml-1 mdi mdi-arrow-right"></i></a>
+        </div>
+
+      </div>
+      <div class="tab-pane show active" id="messages1">
+        <div>
+          <div class="inbox-widget">
+            <h5 class="mt-0">Recent</h5>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-2.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="online user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Tomaslau</a>
+              </p>
+              <p class="inbox-item-text">I've finished it! See you so...</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-3.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="away user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);"
+                                              class="text-dark">Stillnotdavid</a></p>
+              <p class="inbox-item-text">This theme is awesome!</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-4.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="online user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Kurafire</a>
+              </p>
+              <p class="inbox-item-text">Nice to meet you</p>
+            </div>
+
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-5.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="busy user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Shahedk</a>
+              </p>
+              <p class="inbox-item-text">Hey! there I'm available...</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-6.jpg"
+                                               class="rounded-circle" alt=""> <i class="user-status"></i>
+              </div>
+              <p class="inbox-item-author"><a href="javascript: void(0);"
+                                              class="text-dark">Adhamdannaway</a></p>
+              <p class="inbox-item-text">This theme is awesome!</p>
+            </div>
+
+            <hr>
+            <h5>Favorite <span class="float-right badge badge-pill badge-danger">18</span></h5>
+            <hr>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-7.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="busy user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Kennith</a>
+              </p>
+              <p class="inbox-item-text">I've finished it! See you so...</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-3.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="busy user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);"
+                                              class="text-dark">Stillnotdavid</a></p>
+              <p class="inbox-item-text">This theme is awesome!</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-10.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="online user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Kimberling</a>
+              </p>
+              <p class="inbox-item-text">Nice to meet you</p>
+            </div>
+
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-4.jpg"
+                                               class="rounded-circle" alt=""> <i class="user-status"></i>
+              </div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Kurafire</a>
+              </p>
+              <p class="inbox-item-text">Hey! there I'm available...</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img"><img src="assets\images\users\avatar-9.jpg"
+                                               class="rounded-circle" alt=""> <i
+                      class="away user-status"></i></div>
+              <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Leonareade</a>
+              </p>
+              <p class="inbox-item-text">This theme is awesome!</p>
+            </div>
+
+            <div class="text-center mt-2">
+              <a href="javascript:void(0);" class="text-muted"><i
+                      class="mdi mdi-spin mdi-loading mr-1"></i> Load more </a>
+            </div>
+
+          </div> <!-- end inbox-widget -->
+        </div> <!-- end .p-3-->
+      </div>
+    </div>
+
+  </div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- Vendor js -->
+<th:block th:insert="layout/script :: vendor"/>
+
+<th:block th:insert="layout/script :: app-js"/>
+
+<!-- App js -->
+
+
+</body>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/staff.js"></script>
+
+<script>
+  let staffs = [];
+  let staff = null;
+  // function showStaff(){
+  //   $.ajax({
+  //     url: "/api/profileStaff",
+  //     method: "GET",
+  //     contentType: 'application/json',
+  //     success: function (data){
+  //       staffs = data
+  //       let html = ``;
+  //       staffs.forEach((staff) => {
+  //         html += `<tr role="row" class="odd">
+  //                            <td>${staff.fullName}</td>
+  //                            <td>${staff.phone}</td>
+  //                            <td>${staff.email}</td>
+  //                            <td>${staff.age}</td>
+  //                            <td>${staff.locationRegion.districtName}</td>
+  //                            <td>${staff.locationRegion.provinceName}</td>
+  //                            <td>${staff.locationRegion.wardName}</td>
+  //                            <td>${staff.locationRegion.address}</td>
+  //                            <td>
+  //                       <button onclick="update(${staff.id})" class="btn btn-outline-secondary edit"  data-bs-toggle="modal" data-bs-target="#modalUpdate" data-id="${staff.id}" >
+  //                           <i class="fas fa-user-edit"></i>
+  //                       </button>
+  //                   </td>
+  //                            </tr>
+  //
+  //                   `
+  //       })
+  //       document.getElementById("profile-staff").innerHTML = html;
+  //     },
+  //     error: function () {
+  //       console.log("Lỗi lưu lịch sử tinh nhắn ");
+  //     }
+  //   })
+  // }
+  // showStaff();
+
+
+
+  // showStaff();
+  function redirectToProfile(staffID) {
+    $.ajax({
+      url: `/api/profileStaff/${staffID}`, // Replace with your API endpoint
+      method: "GET",
+      contentType: 'application/json',
+      success: function (staff) {
+        let html = `<tr role="row" class="odd">
+                            <td>${staff.fullName}</td>
+                            <td>${staff.phone}</td>
+                            <td>${staff.email}</td>
+                            <td>${staff.age}</td>
+                            <td>${staff.locationRegion.districtName}</td>
+                            <td>${staff.locationRegion.provinceName}</td>
+                            <td>${staff.locationRegion.wardName}</td>
+                            <td>${staff.locationRegion.address}</td>
+                            <td>
+                                <button onclick="update(this.getAttribute('data-id'))" class="btn btn-outline-secondary edit" data-bs-toggle="modal" data-bs-target="#modalUpdate" th:data-id="${staff.id}">
+                                    <i class="fas fa-user-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+        document.getElementById("profile-staff").innerHTML = html;
+      },
+      error: function () {
+        console.log("Error fetching staff profile");
+      }
+    });
+  }
+
+  function renderOptionProvince(obj){
+    return `<option value="${obj.province_id}">${obj.province_name}</option>`;
+  }
+
+  function renderOptionDistrict(obj) {
+    return `<option value="${obj.district_id}">${obj.district_name}</option>`;
+  }
+
+  function renderOptionWard(obj) {
+    return `<option value="${obj.ward_id}">${obj.ward_name}</option>`;
+  }
+  $('#provinceCre').on('change', function () {
+    const provinceId = $(this).val();
+    getAllDistrictsByProvinceId(provinceId);
+  })
+  function getAllProvinces(){
+    $.ajax({
+      url: 'https://vapi.vnappmob.com/api/province/'
+    })
+            .done((data) => {
+              const provinces = data.results;
+              console.log(provinces)
+              const provinceId = provinces[0].province_id;
+              let result = '';
+              $.each(provinces, (index, item) => {
+                const str = renderOptionProvince(item);
+                result+= str;
+              })
+              document.getElementById('provinceUp').innerHTML = result
+
+              getAllDistrictsByProvinceId(provinceId);
+            })
+            .fail((error) => {
+              console.log(error);
+            })
+  }
+  function getAllDistrictsByProvinceId(provinceId){
+    return $.ajax({
+      url: 'https://vapi.vnappmob.com/api/province/district/' + provinceId
+    })
+            .done((data) => {
+              const districts = data.results;
+              const districtId = districts[0].district_id;
+
+              $('#districtUp').empty();
+
+              $.each(districts, (index, item) => {
+                const str = renderOptionDistrict(item);
+                $('#districtUp').append(str);
+              })
+
+              getAllWardsByDistrictId(districtId);
+            })
+            .fail((error) => {
+              console.log(error);
+            })
+  }
+  function getAllWardsByDistrictId(districtId) {
+    return $.ajax({
+      url: 'https://vapi.vnappmob.com/api/province/ward/' + districtId
+    })
+            .done((data) => {
+              const wards = data.results;
+
+              $('#wardUp').empty();
+
+              $.each(wards, (index, item) => {
+                const str = renderOptionWard(item);
+                $('#wardUp').append(str);
+              })
+            })
+            .fail((error) => {
+              console.log(error);
+            })
+  }
+
+
+  $("#provinceUp").on("change", function() {
+    const provinceId = $(this).val();
+    getAllDistrictsByProvinceId(provinceId, $("#districtUp"), function(data) {
+      const districtId = data.results[0].district_id;
+      getAllWardsByDistrictId(districtId, $("#wardUp"));
+    });
+  });
+
+  $("#districtUp").on("change", function() {
+    const districtId = $(this).val();
+    getAllWardsByDistrictId(districtId, $("#wardUp"));
+  });
+
+  getAllProvinces();
+
+
+function update(id){
+  staff = staffs.find(e => e.id === id);
+   $('#idUp').val(staff.id);
+  $('#fullNameUp').val(staff.fullName);
+  $('#emailUp').val(staff.email);
+  $('#phoneUp').val(staff.phone);
+  $('#ageUp').val(staff.age);
+  $('#provinceUp').val(staff.locationRegion.provinceId);
+  $('#provinceUp option:selected').val(staff.locationRegion.provinceId);
+
+  getAllDistrictsByProvinceId(staff.locationRegion.provinceId).then(() => {
+    $('#districtUp').val(staff.locationRegion.districtId);
+    $('#districtUp option:selected').val(staff.locationRegion.districtId);
+
+    getAllWardsByDistrictId(staff.locationRegion.districtId).then((data) => {
+      $('#wardUp').val(staff.locationRegion.wardId);
+      $('#wardUp option:selected').val(staff.locationRegion.wardId);
+    });
+  });
+
+
+
+  $('#addressUp').val(staff.locationRegion.address);
+
+
+}
+  $('#btnUpdate').on('click', function () {
+    const idUp = $('#idUp').val();
+    const fullNameUp = $('#fullNameUp').val();
+    const emailUp = $('#emailUp').val();
+    const phoneUp = $('#phoneUp').val();
+    const ageUp = $('#ageUp').val();
+    const provinceIdUp = $('#provinceUp').val();
+    const provinceNameUp = $('#provinceUp option:selected').text();
+    const districtIdUp = $('#districtUp').val();
+    const districtNameUp = $('#districtUp option:selected').text();
+    const wardIdUp = $('#wardUp').val();
+    const wardNameUp = $('#wardUp option:selected').text();
+    const addressUp = $('#addressUp').val();
+
+    const requestData = {
+      fullName: fullNameUp,
+      email: emailUp,
+      phone: phoneUp,
+      age: ageUp,
+      locationRegion: {
+        provinceId: provinceIdUp,
+        provinceName: provinceNameUp,
+        districtId: districtIdUp,
+        districtName: districtNameUp,
+        wardId: wardIdUp,
+        wardName: wardNameUp,
+        address: addressUp
+      }
+    };
+
+
+    $.ajax({
+      type: 'PUT',
+      url: `/api/staffs/edit-profile/${idUp}`,
+      contentType: 'application/json',
+      data: JSON.stringify(requestData),
+      success: function (response) {
+        console.log(response);
+
+        $('#modalUpdate').modal('hide');
+        // Do whatever else you want after the update
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  });
+
+</script>
+</html>

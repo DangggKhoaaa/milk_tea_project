@@ -1,5 +1,6 @@
 package com.example.hudamilktea.controller;
 
+
 import com.example.hudamilktea.model.Customer;
 import com.example.hudamilktea.repository.CustomerRepository;
 import com.example.hudamilktea.service.CustomerService;
@@ -8,12 +9,19 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import com.example.hudamilktea.repository.StaffRepository;
+import com.example.hudamilktea.service.DTO.StaffSaveRequest;
+import com.example.hudamilktea.service.RegisterStaffService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 @AllArgsConstructor
@@ -22,7 +30,7 @@ public class AuthController {
     private CustomerRepository customerRepository;
 
     @GetMapping("/login")
-    public String showLogin(Model model){
+    public String showLogin(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Customer customer = customerRepository.findCustomerByUsernameIgnoreCase(username);
@@ -37,14 +45,14 @@ public class AuthController {
 //    }
 
     @GetMapping("/register")
-    public String showRegister(Model model){
+    public String showRegister(Model model) {
         CustomerRequest customer = new CustomerRequest();
-        model.addAttribute("customer",customer);
+        model.addAttribute("customer", customer);
         return "customer/register";
     }
 
     @PostMapping("/register")
-    public String registration(@Valid @ModelAttribute("customer") CustomerRequest request, BindingResult result){
+    public String registration(@Valid @ModelAttribute("customer") CustomerRequest request, BindingResult result) {
 
 //        authService.checkRegister(request, result);
 //
@@ -55,6 +63,7 @@ public class AuthController {
         customerService.create(request);
         return "redirect:/register?success";
     }
-
-
 }
+
+
+

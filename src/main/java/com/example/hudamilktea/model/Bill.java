@@ -25,6 +25,12 @@ public class Bill {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "staff_id")
+    private Staff staff;
+
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     private List<BillDetail> billDetails;
+
+
 }
