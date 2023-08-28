@@ -24,27 +24,16 @@ public class HomeController {
         return "customer/home";
     }
 
-    @GetMapping("/register")
-    public String showRegister (){
-        return "customer/register";
-    }
+//    @GetMapping("/register")
+//    public String showRegister (){
+//        return "customer/register";
+//    }
+//
+//    @GetMapping("/login")
+//    public String showLogin (){
+//        return "customer/login";
+//    }
 
-    @GetMapping("/login")
-    public String showLogin (){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        Customer customer = customerRepository.findCustomerByUsernameIgnoreCase(username);
-//        model.addAttribute("customer", customer);
-        return "customer/login";
-    }
-    @PostMapping("/login")
-    public String login(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Customer customer = customerRepository.findCustomerByUsernameIgnoreCase(username);
-        model.addAttribute("customer", customer);
-        return "customer/home";
-    }
     @GetMapping("/products")
     public String showProduct (){
         return "customer/product";
@@ -55,8 +44,4 @@ public class HomeController {
         return "customer/cart";
     }
 
-    @GetMapping("/reg")
-    public String showRe (){
-        return "register";
-    }
 }

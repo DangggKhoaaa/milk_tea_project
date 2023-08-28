@@ -8,7 +8,6 @@ import com.example.hudamilktea.repository.LocationRegionRepository;
 import com.example.hudamilktea.service.DTO.CustomerRequest;
 import com.example.hudamilktea.util.AppUtils;
 import lombok.AllArgsConstructor;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

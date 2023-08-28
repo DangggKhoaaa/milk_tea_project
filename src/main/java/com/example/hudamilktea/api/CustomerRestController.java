@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CustomerRestController {
     private final CustomerService customerService;
-//
-//    @PostMapping
-//    public ResponseEntity<?> create(@RequestBody CustomerRequest customerRequest) {
-//        customerService.create(customerRequest);
-//        return ResponseEntity.ok(customerRequest);
-//    }
+
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody CustomerRequest customerRequest) {
+        customerService.create(customerRequest);
+        return ResponseEntity.ok(customerRequest);
+    }
 }
