@@ -24,7 +24,10 @@ public class Staff {
     @Column(unique = true)
     private String phone;
     private long age;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
+
     @OneToOne
     @JoinColumn(name = "location_region_id")
     private LocationRegion locationRegion;

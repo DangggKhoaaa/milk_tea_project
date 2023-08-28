@@ -1,8 +1,10 @@
 package com.example.hudamilktea.service;
 
+import com.example.hudamilktea.model.Customer;
 import com.example.hudamilktea.model.LocationRegion;
 import com.example.hudamilktea.model.Staff;
 import com.example.hudamilktea.model.enums.Role;
+import com.example.hudamilktea.repository.CustomerRepository;
 import com.example.hudamilktea.repository.LocationRegionRepository;
 import com.example.hudamilktea.repository.StaffRepository;
 import com.example.hudamilktea.service.DTO.LocationRegionRequest;
@@ -39,6 +41,8 @@ public class RegisterStaffService  {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final CustomerRepository customerRepository;
+
     public List<Staff> findAll(){
         return staffRepository.findAll();
     }
@@ -71,6 +75,16 @@ public class RegisterStaffService  {
         locationRegion = locationRegionRepository.save(locationRegion);
         staff.setLocationRegion(locationRegion);
         staffRepository.save(staff);
+
+        Customer customer = AppUtils.mapper.map(request, Customer.class);
+        customer.setUsername(staff.getStaffName());
+        customer.setRole(Role.ROLE_STAFF);
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+
+        locationRegionRepository.save(locationRegion);
+        customer.setLocationRegion(locationRegion);
+
+        customerRepository.save(customer);
     }
     public boolean CheckStaffNameOrPhoneOrEmail(StaffSaveRequest request, BindingResult result){
         boolean check = false;
