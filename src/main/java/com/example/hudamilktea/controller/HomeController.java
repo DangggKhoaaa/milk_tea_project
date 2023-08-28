@@ -24,16 +24,6 @@ public class HomeController {
         return "customer/home";
     }
 
-//    @GetMapping("/register")
-//    public String showRegister (){
-//        return "customer/register";
-//    }
-//
-//    @GetMapping("/login")
-//    public String showLogin (){
-//        return "customer/login";
-//    }
-
     @GetMapping("/products")
     public String showProduct (){
         return "customer/product";

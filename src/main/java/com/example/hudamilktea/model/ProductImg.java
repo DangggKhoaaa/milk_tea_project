@@ -16,8 +16,10 @@ public class ProductImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;
+
     @Enumerated(EnumType.STRING)
     private FileType fileType;
+
     @ManyToOne
     @JoinColumn(name = "id_product")
     @JsonIgnore
