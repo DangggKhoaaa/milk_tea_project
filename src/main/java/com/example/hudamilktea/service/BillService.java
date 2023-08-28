@@ -38,7 +38,7 @@ public class BillService {
         }
         bill.setTotal(totalAmount);
 
-        Customer customer = customerRepository.findCustomerByPhone(request.getCustomer().getPhone()).orElseThrow(null);
+        Customer customer = customerRepository.findCustomerByUsername(request.getCustomer().getUsername()).orElseThrow(null);
         if (customer != null) {
             bill.getCustomer().setId(customer.getId());
         }

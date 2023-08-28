@@ -18,6 +18,6 @@ public class BillController {
     public String show(Model model) {
         model.addAttribute("bill", new BillRequest());
         model.addAttribute("products", productService.findAll());
-        return "bill";
+        return "/customer/cart";
     }
 }

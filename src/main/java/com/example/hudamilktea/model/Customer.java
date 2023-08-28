@@ -1,5 +1,6 @@
 package com.example.hudamilktea.model;
 
+import com.example.hudamilktea.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +31,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Bill> bills;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
