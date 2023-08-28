@@ -60,7 +60,7 @@ public class StaffService {
         locationRegionRepository.delete(locationRegion);
     }
 
-    public boolean loadStaffByUsername(String staffName) {
+    public Staff loadStaffByUsername(String staffName) {
         return staffRepository.existsByStaffName(staffName);
     }
 }

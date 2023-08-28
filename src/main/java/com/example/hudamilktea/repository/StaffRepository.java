@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface StaffRepository extends JpaRepository<Staff, Long> {
     Optional<Staff> findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(String staffName, String email, String phone);
 
-    boolean existsByStaffName(String staffName);
+    Staff existsByStaffName(String staffName);
 
 
 

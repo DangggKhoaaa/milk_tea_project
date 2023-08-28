@@ -18,6 +18,11 @@ import lombok.AllArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -28,11 +33,11 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class RegisterStaffService{
+public class RegisterStaffService implements UserDetailsService {
     private final StaffRepository staffRepository;
     private final LocationRegionRepository locationRegionRepository;
 
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public List<Staff> findAll(){
         return staffRepository.findAll();
@@ -49,7 +54,7 @@ public class RegisterStaffService{
     public void register( StaffSaveRequest request) {
         var staff = AppUtils.mapper.map(request, Staff.class);
         staff.setStaffName(staff.getStaffName());
-        staff.setPassword(staff.getPassword());
+        staff.setPassword(passwordEncoder.encode(staff.getPassword()));
         staff.setRole(Role.ROLE_USER);
 
         LocationRegionRequest locationRegionSaveRequest = request.getLocationRegion();
@@ -85,16 +90,16 @@ public class RegisterStaffService{
         return check;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Staff staff = staffRepository.findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(username,username,username).orElse(null);
-//        if (staff == null){
-//            throw new UsernameNotFoundException("Tài khoản không tồn tài, cút");
-//        }
-//        var role = new ArrayList<SimpleGrantedAuthority>();
-//        role.add(new SimpleGrantedAuthority(staff.getRole().toString()));
-//        return new org.springframework.security.core.userdetails.User(staff.getStaffName(),staff.getPassword(),role);
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Staff staff = staffRepository.findByStaffNameIgnoreCaseOrEmailIgnoreCaseOrPhone(username,username,username).orElse(null);
+        if (staff == null){
+            throw new UsernameNotFoundException("Tài khoản không tồn tài, cút");
+        }
+        var role = new ArrayList<SimpleGrantedAuthority>();
+        role.add(new SimpleGrantedAuthority(staff.getRole().toString()));
+        return new org.springframework.security.core.userdetails.User(staff.getStaffName(),staff.getPassword(),role);
+    }
 
 
 }
