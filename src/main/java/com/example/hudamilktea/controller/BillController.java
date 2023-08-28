@@ -1,7 +1,7 @@
 package com.example.hudamilktea.controller;
 
 import com.example.hudamilktea.service.DTO.BillRequest;
-import com.example.hudamilktea.service.ProductService;
+import com.example.hudamilktea.service.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
