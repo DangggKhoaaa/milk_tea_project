@@ -49,32 +49,39 @@ function showProductDetail(id){
     }).done(data =>{
         document.getElementById("productName").textContent = data.name;
         document.getElementById("productImg").src = data.imgUrl;
+        document.getElementById("sizeS").onclick = function (){
+            updateProductPrice(data.price);
+        }
+        document.getElementById("sizeM").onclick = function (){
+            updateProductPrice(data.price);
+        }
+        document.getElementById("sizeL").onclick = function (){
+            updateProductPrice(data.price);
+        }
+        document.getElementById("quantity").onclick = function (){
+            updateProductPrice(data.price);
+        }
+
         updateProductPrice(data.price);
     })
     function updateProductPrice(basePrice) {
         let selectedSize = document.querySelector('input[name="size"]:checked').id;
-        const priceElement = document.getElementById("productPrice");
+        const quantity = parseInt(document.querySelector('.quantity').value);
+        const priceElement = document.getElementById("productPrice")
+        const sizeS = basePrice;
+        console.log(sizeS)
+        const sizeM = basePrice + 5000;
+        const sizeL = basePrice + 10000;
 
         if (selectedSize === "sizeS") {
-            basePrice = 39000;
-            priceElement.textContent = basePrice;
+            priceElement.textContent = sizeS * quantity;
         }
         if (selectedSize === "sizeM") {
-            priceElement.textContent = 44000;
+            priceElement.textContent = sizeM * quantity;
         }
         if (selectedSize === "sizeL") {
-            priceElement.textContent = 49000;
+            priceElement.textContent = sizeL * quantity;
         }
     }
 
-    // Gán sự kiện "click" vào phần tử "sizeM"
-    document.getElementById("sizeS").addEventListener("click", function() {
-        updateProductPrice(parseFloat(document.getElementById("productPrice").textContent));
-    });
-    document.getElementById("sizeM").addEventListener("click", function() {
-        updateProductPrice(parseFloat(document.getElementById("productPrice").textContent));
-    });
-    document.getElementById("sizeL").addEventListener("click", function() {
-        updateProductPrice(parseFloat(document.getElementById("productPrice").textContent));
-    });
 }
