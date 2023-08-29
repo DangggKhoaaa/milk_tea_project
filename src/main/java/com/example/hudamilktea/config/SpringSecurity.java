@@ -34,12 +34,11 @@ public class SpringSecurity {
                                 .requestMatchers("/assets/**").permitAll()
                                 .requestMatchers("/js/**").permitAll()
                                 .requestMatchers("/logout").permitAll()
+                                .requestMatchers("/home").permitAll()
                                 .requestMatchers("/customer").hasAnyRole("ADMIN")
                                 .requestMatchers("/products").hasAnyRole("ADMIN")
                                 .requestMatchers("/staff/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/home/**").hasAnyRole("USER","STAFF").anyRequest().authenticated()
-                                .requestMatchers("/home").permitAll()
-                                .requestMatchers("/home/**").hasAnyRole("USER").anyRequest().authenticated()
+                                .requestMatchers("/home/**").hasAnyRole("USER","STAFF","ADMIN").anyRequest().authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

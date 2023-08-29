@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class UploadService {
-    String UPLOAD_DIR = "D:\\case_study\\milk_tea_project\\src\\main\\resources\\assets\\productImage\\";
+    String UPLOAD_DIR = "E:\\CodeGym\\Module4\\CaseStudy\\milk_tea_project\\src\\main\\resources\\assets\\productImage\\";
     String SAVE_UPLOAD_DIR = "..\\assets\\productImage\\";
     public List<ProductImageSaveRequest> addFileToRequest(MultipartFile[] multipartFiles){
         List<ProductImageSaveRequest> list = new ArrayList<>();

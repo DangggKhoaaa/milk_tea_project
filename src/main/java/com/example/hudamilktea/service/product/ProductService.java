@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +34,10 @@ public class ProductService {
                     var response = AppUtils.mapper.map(product, ProductListResponse.class);
                     return response;
                 });
+    }
+
+    public Optional<Product> findById(Long id){
+        return productRepository.findById(id);
     }
 
     public Product create(ProductRequest request) {

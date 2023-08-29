@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -34,7 +35,18 @@ public class ProductRestController {
                                             Pageable pageable){
         return productService.findAllWithSearchAndPaging(search,pageable);
     }
-//
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        Optional<Product> productOptional = productService.findById(id);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@ModelAttribute ProductRequest request, MultipartFile img) throws IOException {
         if(img != null && img.getSize() > 0) {
