@@ -98,6 +98,12 @@ btnRegister.on('click', () => {
             title: 'Error',
             text: "Please select a province before submitting.",
         });
+    } else if ($("#password").val() === "" || $("#username").val() === "" || $("#fullName").val() === "" || $("#phone").val() === "" || $("#address").val() === "") {
+        swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "Please fill out all information before submitting !!!",
+        });
     } else {
         btnRegister.attr("disabled", true);
         const obj = {

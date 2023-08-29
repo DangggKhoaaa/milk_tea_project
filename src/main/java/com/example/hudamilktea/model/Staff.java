@@ -2,6 +2,7 @@ package com.example.hudamilktea.model;
 
 import com.example.hudamilktea.model.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Staff {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
+    @NotNull
     private String fullName;
     private String staffName;
     private String password;
