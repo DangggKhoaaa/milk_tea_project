@@ -8,6 +8,8 @@
    <th:block th:insert="layout/header :: homaMeta"/>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     <link href="/css/cart.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         .img {
@@ -109,7 +111,7 @@
                         <div class="nav-item dropdown">
                             <p class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >Username</p>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="feature.html" class="dropdown-item">Profile</a>
+                                <a class="dropdown-item" id="updateProfile">Profile</a>
                                 <a href="blog.html" class="dropdown-item">Change Password</a>
                             </div>
                         </div>
@@ -145,6 +147,63 @@
     </div>
     <!-- Page Header End -->
 
+<!-- Modal Update -->
+<div class="modal fade" id="modalUpdate" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Modal update</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formUp">
+                    <div class="row mb-3">
+                        <input type="hidden" id="idUp">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="fullNameUp">FullName</label>
+                            <input type="text" id="fullNameUp" class="form-control">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="emailUp">Email</label>
+                            <input type="email" id="emailUp" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-4">
+                            <label class="col-form-label" for="provinceUp">Province</label>
+                            <select name="" id="provinceUp" class="form-select"></select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="col-form-label" for="districtUp">District</label>
+                            <select name="" id="districtUp" class="form-select"></select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="col-form-label" for="wardUp">Ward</label>
+                            <select name="" id="wardUp" class="form-select"></select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="phoneUp">Phone</label>
+                            <input type="tel" id="phoneUp" class="form-control">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="addressUp">Address</label>
+                            <input type="text" id="addressUp" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeUp">Close</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Products Start -->
     <div class="container-fluid product py-5">
@@ -399,6 +458,7 @@
     <!-- Back to Top -->
 <th:block th:insert="layout/script :: homeScript"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/js/profile.js"></script>
 <script>
     function changeQuantity(e) {
         if (+e.value < 0) {

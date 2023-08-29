@@ -59,14 +59,14 @@
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
         <h1 class="display-2 text-light mb-4 animated slideInDown"> Shopping Cart </h1>
-        <form th:object="${bill}">
+        <form th:object="${customer}">
             <section class="h-100 h-custom">
                 <div class="container py-5 h-100">
 <!--                    <div>-->
 <!--                        <div class="col-md-6">-->
 <!--                            <label for="fullName" class="form-label">Full Name</label>-->
-<!--                            <input type="text" class="form-control" id="fullName" th:field="*{customer.fullName}">-->
-<!--                            <div class="invalid-feedback" th:if="${#fields.hasErrors('customer.fullName')}" th:errors="*{customer.fullName}"></div>-->
+<!--                            <input type="text" class="form-control" id="fullName" th:field="*{fullName}">-->
+<!--                            <div class="invalid-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>-->
 <!--                        </div>-->
 <!--                    </div>-->
                     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -118,7 +118,7 @@
                                                 <hr class="my-3">
 
                                                 <div class="pt-5">
-                                                    <h6 class="mb-0"><a href="#!" class="text-body"><i
+                                                    <h6 class="mb-0"><a href="/home/products" class="text-body"><i
                                                             class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                                                 </div>
                                             </div>
