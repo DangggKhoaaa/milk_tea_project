@@ -14,5 +14,5 @@ public class ProductListResponse {
     private Long id;
     private String name;
     private BigDecimal price;
-    private ProductImageSaveRequest img;
+    private String imgUrl;
 }

@@ -23,9 +23,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Size size;
 
-    @OneToOne
-    private ProductImg img;
 
+    private String imgUrl;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

@@ -1,6 +1,7 @@
 package com.example.hudamilktea.service.product;
 
 import com.example.hudamilktea.model.Product;
+import com.example.hudamilktea.model.ProductImg;
 import com.example.hudamilktea.repository.ProductRepository;
 import com.example.hudamilktea.service.product.request.ProductRequest;
 import com.example.hudamilktea.service.product.response.ProductListResponse;
@@ -36,6 +37,7 @@ public class ProductService {
 
     public Product create(ProductRequest request) {
         Product newProduct = AppUtils.mapper.map(request, Product.class);
+
         productRepository.save(newProduct);
         return newProduct;
     }

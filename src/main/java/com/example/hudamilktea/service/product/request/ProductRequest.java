@@ -7,6 +7,7 @@ import com.example.hudamilktea.service.productImage.ProductImageSaveRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @Data
@@ -14,5 +15,8 @@ import lombok.NoArgsConstructor;
 public class ProductRequest {
     private String name;
     private String price;
-    private ProductImageSaveRequest img;
+    private String imgUrl;
+//    private String url;
+//    private FileType fileType;
+//    private ProductImageSaveRequest img;
 }

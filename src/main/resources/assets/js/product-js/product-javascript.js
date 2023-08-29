@@ -4,7 +4,6 @@ const body = document.getElementById("body");
 const API_PRODUCT = 'http://localhost:8080/api/products';
 let categories = [];
 let products = [];
-let myModel = document.getElementById('exampleModal');
 let page = 0;
 let size = 2;
 let totalPage = 0;
@@ -51,48 +50,46 @@ function uploadFile() {
 
 function eventShowForm() {
     $('#modalCreate').modal('show')
-    $('#modalUp').modal('show')
 }
 
-function createProducts() {
-    let productData = {
-        name: document.getElementById("fullNameCre").value,
-        price: document.getElementById("priceCre").value,
-        img: document.getElementById("avatarCre").files[0]
-    };
-    console.log(productData);
+function createProducts(e) {
+e.preventDefault();
+    const form = document.getElementById("formCreate");
+    const formInput = new FormData(form);
+    formInput.append('name', $('#fullNameCre').val())
+    formInput.append('price', $('#priceCre').val())
+    formInput.append('img', $('#avatarCre')[0].files[0])
     $.ajax({
         url: "http://localhost:8080/api/products",
-        type: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        data: JSON.stringify(productData),
-        processData: false,
+        method: "POST",
         contentType: false,
+        cache: false,
+        processData: false,
+        data: formInput
     }).done(e => {
         alert('Success');
         renderProducts();
+        $('#modalCreate').modal('hide')
+        form.reset();
     });
 }
 
 const renderProducts = () => {
     body.innerHTML = '';
     $.ajax({
-        url: `http://localhost:8080/api/products`,
+        url: `http://localhost:8080/api/products?page=${page || 0}&size=${size || 0}`,
         method: 'GET'
 
     }).done(data => {
         products = data.content;
         totalPage = data.totalPages;
-
+        console.log(products)
         products.forEach((product, index) => {
             body.innerHTML += `
                <td>${product.id}</td>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
-                    <td><img  class="imgProduct" src="${product.img.url}" ></td>
+                    <td><img  class="imgProduct" src="${product.imgUrl || ""}" ></td>
                     <td>
                       <button type="button" class="btn btn-primary" onclick="showEdit(${product.id})" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
                                     <button type="button" class="btn btn-danger" onclick="deleteById(${product.id})">Delete</button>
@@ -101,8 +98,6 @@ const renderProducts = () => {
 
 `
         })
-        body.innerHTML = str;
-        //loading.style.display = 'none !important';
         renderPagination();
         if(page > 0 && products.length === 0) {
             page = 0;
@@ -117,6 +112,7 @@ const renderPagination = () => {
     const pagination = $('#pagination');
     pagination.empty();
     //render Previous
+    console.log(totalPage)
     pagination.append(` <li onclick="onPageChange(${page})"
         class="page-item ${page === 0 ? 'disabled' : ''}">
       <a class="page-link" href="#" tabindex="-1" ${page === 0 ? 'aria-disabled="true"' : ''} >Previous</a>
@@ -139,7 +135,9 @@ const renderPagination = () => {
 
 renderProducts();
 const onPageChange = (pageChange) => {
-    if (pageChange < 1 || pageChange > totalPage || pageChange === page + 1) {
+    console.log(pageChange)
+
+    if (pageChange < 1 || pageChange > totalPage || pageChange === page) {
         return;
     }
     //console.log(page);
