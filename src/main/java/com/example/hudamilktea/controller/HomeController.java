@@ -25,7 +25,11 @@ public class HomeController {
     }
 
     @GetMapping("/products")
-    public String showProduct (){
+    public String showProduct (Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Customer customer = customerRepository.findCustomerByUsernameIgnoreCase(username);
+        model.addAttribute("customer", customer);
         return "customer/product";
     }
 

@@ -78,20 +78,6 @@ $("#districtCre").on("change", function() {
     getAllWardsByDistrictId(districtId, $("#wardCre"));
 });
 
-$("#provinceUp").on("change", function() {
-    const provinceId = $(this).val();
-    getAllDistrictsByProvinceId(provinceId, $("#districtUp"), function(data) {
-        const districtId = $("#districtUp").val()
-        getAllWardsByDistrictId(districtId, $("#wardUp"));
-    });
-});
-
-
-$("#districtUp").on('change', function () {
-    const districtId = $(this).val();
-    getAllWardsByDistrictId(districtId, $("#wardUp"));
-})
-
 getAllProvinces();
 
 
@@ -246,6 +232,13 @@ function checkInput(input) {
                     error: false,
                     message
                 }
+            } else {
+                regex = /^[a-zA-ZÀ-Ỹà-ỹ]+( [a-zA-ZÀ-Ỹà-ỹ,./]+)*$/;
+                message = "The address cannot have any special characters other than , . /";
+                return {
+                    error: regex.test(value),
+                    message
+                }
             }
         case "provinceCre":
             if (value === "") {
@@ -277,6 +270,7 @@ const onBlur = (input) => {
 const onInput = (input) => {
     let errorStatus = checkInput(input)
     isError = !errorStatus.error;
+    console.log(isError)
     input.classList.remove("is-invalid", "is-valid");
     input.classList.add(isError ? "is-invalid" : "is-valid");
 }

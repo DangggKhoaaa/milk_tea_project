@@ -73,6 +73,27 @@ e.preventDefault();
         form.reset();
     });
 }
+function editProducts(e) {
+e.preventDefault();
+    const formEdit = document.getElementById("modalUp");
+    const formEditProduct = new FormData(formEdit);
+    formEditProduct.append('name', $('#fullNameUp').val())
+    formEditProduct.append('price', $('#priceUp').val())
+    formEditProduct.append('img', $('#imgUp')[0].files[0])
+    $.ajax({
+        url: "http://localhost:8080/api/products" + id,
+        method: "PUT",
+        contentType: false,
+        cache: false,
+        processData: false,
+        data: formEditProduct
+    }).done(e => {
+        alert('Success');
+        renderProducts();
+        $('#modalCreate').modal('hide')
+        formEdit.reset();
+    });
+}
 
 const renderProducts = () => {
     body.innerHTML = '';
