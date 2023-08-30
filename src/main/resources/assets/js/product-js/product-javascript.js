@@ -180,3 +180,13 @@ function onSort(str) {
     }
     renderProducts();
 }
+
+function deleteById(id) {
+    $.ajax({
+        url: API_PRODUCT + '/' + id,
+        method: 'DELETE',
+    }).done(e => {
+        alert('Success');
+        onPageChange(1)
+    })
+}

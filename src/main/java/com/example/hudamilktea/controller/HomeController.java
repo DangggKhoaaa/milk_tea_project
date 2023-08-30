@@ -34,7 +34,11 @@ public class HomeController {
     }
 
     @GetMapping("/cart")
-    public String showCart (){
+    public String showCart (Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Customer customer = customerRepository.findCustomerByUsernameIgnoreCase(username);
+        model.addAttribute("customer", customer);
         return "customer/cart";
     }
 

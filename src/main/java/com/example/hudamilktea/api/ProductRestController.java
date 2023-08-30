@@ -31,7 +31,7 @@ public class ProductRestController {
     private final ProductService productService;
 
     @GetMapping
-    public Page<ProductListResponse>findAll(@RequestParam(defaultValue = "") String search,@PageableDefault(size = 5)
+    public Page<ProductListResponse>findAll(@RequestParam(defaultValue = "") String search,@PageableDefault(size = 9)
                                             Pageable pageable){
         return productService.findAllWithSearchAndPaging(search,pageable);
     }

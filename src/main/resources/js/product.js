@@ -23,7 +23,7 @@ function renderProductHome(){
                                 <small class="fa fa-star text-primary"></small>
                             </div>
                             <h4 class="mb-3" id="p1">${product.name}</h4>
-                            <p>Aliqu diam amet diam et eos. Clita erat ipsum lorem erat ipsum lorem sit sed</p>
+                            <p></p>
                             <h4 class="text-primary">${product.price}VND</h4>
                         </div>
                         <div class="store-overlay" >
@@ -31,7 +31,7 @@ function renderProductHome(){
                                 More Detail<i class="fa fa-arrow-right ms-2" >
                             </i>
                             </a>
-                            <a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></a>
+                            <p class="btn btn-dark rounded-pill py-2 px-4 m-2" onclick="addToCart(${product.id})">Add to Cart <i class="fa fa-cart-plus ms-2"></i></p>
                         </div>
                     </div>
                 </div>`
@@ -69,7 +69,6 @@ function showProductDetail(id){
         const quantity = parseInt(document.querySelector('.quantity').value);
         const priceElement = document.getElementById("productPrice")
         const sizeS = basePrice;
-        console.log(sizeS)
         const sizeM = basePrice + 5000;
         const sizeL = basePrice + 10000;
 
@@ -83,5 +82,66 @@ function showProductDetail(id){
             priceElement.textContent = sizeL * quantity;
         }
     }
-
 }
+
+const cart = [];
+
+function addToCart(productId) {
+    const product = products.find(item => item.id === productId);
+
+    if (product) {
+        const productCopy = { ...product };
+
+        const existingProduct = cart.find(item => item.id === product.id);
+
+        if (existingProduct) {
+            existingProduct.quantity++;
+        } else {
+            productCopy.quantity = 1;
+            cart.push(productCopy);
+        }
+
+        const countElement = document.getElementById('count');
+        if (countElement) {
+            const currentCount = parseInt(countElement.innerText);
+            countElement.innerText = currentCount + 1;
+        }
+        console.log(cart);
+    }
+}
+
+const cartItemsContainer = document.getElementById('cartItems');
+cart.forEach((product) => {
+    console.log(product)
+    const productHtml = `
+    <div class="d-flex align-items-center mb-3">
+      <img src="${product.imgUrl}" alt="${product.name}" class="me-3" style="max-width: 50px;">
+      <div>
+        <h6 class="mb-0">${product.name}</h6>
+        <p class="mb-0">Price: €${product.price}</p>
+        <p class="mb-0">Quantity: ${product.quantity}</p>
+      </div>
+    </div>
+  `;
+    cartItemsContainer.innerHTML += productHtml;
+});
+
+
+const cartSummaryContainer = document.getElementById('cartSummary');
+
+
+let totalItems = 0;
+let totalPrice = 0;
+
+cart.forEach((product) => {
+    totalItems += product.quantity;
+    totalPrice += product.price * product.quantity;
+});
+
+const cartSummaryHtml = `
+  <div>
+    <p>Total items: ${totalItems}</p>
+    <p>Total price: €${totalPrice}</p>
+  </div>
+`;
+cartSummaryContainer.innerHTML = cartSummaryHtml;
